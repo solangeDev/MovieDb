@@ -1,0 +1,23 @@
+.baseButton {
+  width: 100%;
+  height: tablet(36px);
+
+  &:disabled {
+    background-color: $dark-sky-blue !important;
+  }
+  &:focus {
+    outline: inherit !important;
+  }
+
+  &__btnBlue {
+    border-radius: 5px !important;
+    color: $white !important;
+    background: $blue !important;
+    border-color: transparent;
+    text-transform: none !important;
+    span {
+      @include text($white, "Roboto-Medium", tablet(14px), 1.14, normal);
+      box-sizing: border-box;
+    }
+  }
+}

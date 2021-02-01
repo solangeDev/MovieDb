@@ -1,0 +1,57 @@
+.BaseInputPassword {
+  width: 100%;
+
+  &__root {
+    //margin-top: 16px !important;
+  }
+
+  p {
+    @include text($pastel-red, "Roboto-Regular", desktop(12px), 1.5, normal);
+    color: $pastel-red !important;
+    font-size: desktop(12px) !important;
+  }
+
+  > div {
+    //margin-top: 18px !important;
+    > input {
+      @include text(
+        $text-gray-dark,
+        "Roboto-Regular",
+        desktop(14px),
+        normal,
+        normal
+      );
+      font-size: desktop(14px) !important;
+      padding: 5px 0 5px !important;
+    }
+  }
+
+  > div:hover:before {
+    border-bottom: 1px solid $dark-sky-blue !important;
+  }
+
+  > div:hover:after {
+    border-bottom: 1px solid $dark-sky-blue !important;
+  }
+
+  > div:after,
+  > div:before {
+    border-bottom: 1px solid $grey !important;
+  }
+
+  label {
+    @include text(
+      $icons-gray-light,
+      "Roboto-Regular",
+      desktop(14px),
+      normal,
+      normal
+    );
+    color: $icons-gray-light !important;
+  }
+
+  svg {
+    color: $icons-gray-light;
+    font-size: desktop(22px);
+  }
+}

@@ -1,0 +1,14 @@
+@import '../../main.scss';
+
+// Desktop
+@import 'desktop';
+
+// Mobile
+@media only screen and (max-width: $bp-mobile) {
+  @import 'mobile';
+}
+
+// Tablet
+@media only screen and (max-width: $bp-tablet) {
+  @import 'tablet';
+}

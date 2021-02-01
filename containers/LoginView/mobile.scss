@@ -1,0 +1,45 @@
+.LoginView {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #f9fafb;
+
+  &__container {
+    width: 100%;
+    padding: 0 mobile(20px);
+  }
+
+  &__alert {
+    padding-top: mobile(20px);
+  }
+
+  &__hide {
+    display: none;
+  }
+
+  &__item {
+    padding-top: mobile(32px);
+    &:first-child {
+      padding-top: 0;
+    }
+  }
+
+  &__title {
+    @include text($text-gray-dark, "Roboto-Bold", mobile(16px), 0.67, normal);
+    padding-bottom: mobile(40px);
+    padding: 0 mobile(20px) mobile(40px);
+  }
+
+  &__btnSubmit {
+    padding-top: mobile(62px);
+  }
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

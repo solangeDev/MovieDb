@@ -1,0 +1,63 @@
+.BaseInput {
+  &__textAdornment {
+    padding: 5px 0 5px !important;
+    @include text(
+      $text-gray-dark,
+      "Roboto-Medium",
+      desktopUltra(14px),
+      1.57,
+      normal
+    );
+  }
+  &__root {
+    p {
+      @include text(
+        $pastel-red,
+        "Roboto-Regular",
+        desktopUltra(12px),
+        1.5,
+        normal
+      );
+      color: $pastel-red !important;
+      font-size: desktopUltra(12px) !important;
+    }
+
+    > div:hover:before {
+      border-bottom: 1px solid $dark-sky-blue !important;
+    }
+
+    > div:hover:after {
+      border-bottom: 1px solid $dark-sky-blue !important;
+    }
+    // > div {
+    //   margin-top: 18px !important;
+    // }
+    > div:after,
+    > div:before {
+      border-bottom: 1px solid $grey !important;
+    }
+
+    input {
+      @include text(
+        $text-gray-dark,
+        "Roboto-Regular",
+        desktopUltra(14px),
+        normal,
+        normal
+      );
+      font-size: desktopUltra(14px) !important;
+      padding: 5px 0 5px !important;
+    }
+
+    label {
+      @include text(
+        $icons-gray-light,
+        "Roboto-Regular",
+        desktopUltra(14px),
+        normal,
+        normal
+      );
+      color: $icons-gray-light !important;
+    }
+  }
+}

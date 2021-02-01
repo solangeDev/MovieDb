@@ -1,0 +1,70 @@
+.NavBar {
+  background-color: #f9fafb;
+  height: 100vh;
+  width: tablet(243px);
+  border: solid 1px #d7d1d1;
+  overflow-x: hidden;
+  overflow-y: initial;
+  padding-bottom: tablet(50px);
+
+  &__userIcon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__avatar {
+    padding: tablet(100px) 0 tablet(30px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: solid 1px #d7d1d1;
+  }
+
+  &__title {
+    padding-top: tablet(27px);
+    @include text($font-color, "Roboto-Medium", tablet(16px), 1.25, normal);
+  }
+
+  &__profession {
+    padding-top: tablet(2px);
+    @include text($grey-font, "Roboto-Regular", tablet(12px), 1.33, normal);
+  }
+
+  &__item {
+    border-right: 1px solid #f2f2f2;
+    cursor: pointer;
+    padding: tablet(17px) 0 tablet(17px) tablet(20px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 15px;
+    div {
+      svg {
+        color: $icons-gray-light;
+      }
+    }
+  }
+
+  &__itemTitle {
+    @include text(
+      $icons-gray-light,
+      "Roboto-Medium",
+      tablet(14px),
+      1.33,
+      normal
+    );
+  }
+
+  &__active {
+    div {
+      color: $text-gray-dark !important;
+      svg {
+        color: $text-gray-dark !important;
+      }
+    }
+  }
+}

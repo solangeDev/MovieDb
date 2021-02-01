@@ -1,0 +1,11 @@
+.Alert {
+  &__alert {
+    width: 100%;
+    display: none;
+  }
+
+  &__show {
+    display: block !important;
+    transition: all 1s ease-out;
+  }
+}
