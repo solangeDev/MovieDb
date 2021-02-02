@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import TopBar from '../../components/TopBar';
+import NowPlaying from '../../components/NowPlaying';
 import NavBar from "../../components/NavBar";
 import { Animated } from "react-animated-css";
 
 export default function DashboardLayout(props) {
 
   const [openNavBar, setOpenNavBar] = useState(true);
-  const [activeMenu, setActiveMenu] = useState("recentMovies");
+  const [activeMenu, setActiveMenu] = useState("dashboard");
   const [width, setWidth] = useState(process.browser ? window.innerWidth : 0);
 
   useEffect(() => {
@@ -22,10 +23,10 @@ export default function DashboardLayout(props) {
   }, [width]);
 
   useEffect(() => {
-    if (width >= 1280) {
-      setOpenNavBar(true);
-    } else {
-      setOpenNavBar(false);
+    if (width <= 768) {
+      setOpenNavBar(false)
+    }else{
+      setOpenNavBar(true)
     }
   }, [width]);
 
@@ -37,21 +38,22 @@ export default function DashboardLayout(props) {
     setActiveMenu(e);
   };
 
-  useEffect(() => {}, [activeMenu]);
-  
+  useEffect(() => { }, [activeMenu]);
+
   return (
     <div>
-      <TopBar menuIcon={true} openNavBar={handleChangeOpenBar} open={openNavBar}/>
-      <article
+        <TopBar menuIcon={true} openNavBar={handleChangeOpenBar} open={openNavBar} />
+      <section className={`${styles.Dashboard__body}`}>
+        <article
           className={`${styles.Dashboard__sideBar} ${
             !openNavBar ? styles.Dashboard__notZIndex : ""
-          }`}
+            }`}
         >
           <Animated
             animationIn="slideInLeft" //bounceOutLeft
             animationOut="slideOutLeft"
             animationInDuration={400}
-            animationOutDuration={350}
+            animationOutDuration={110}
             isVisible={openNavBar}
           >
             <NavBar
@@ -60,6 +62,10 @@ export default function DashboardLayout(props) {
             ></NavBar>
           </Animated>
         </article>
+        <article className={styles.Dashboard__feed} >
+          <NowPlaying />
+        </article>
+      </section>
     </div>
   );
 }

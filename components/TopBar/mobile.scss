@@ -1,8 +1,44 @@
 .TopBar {
+  height: 50px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  &__title {
+    cursor: pointer;
+    @include text($white, "Montserrat-Bold", mobile(18px), normal, normal);
+    text-decoration: underline;
+  }
+
+  &__buttonRoot {
+    padding: 0 !important;
+  }
+
+  &__avatar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    padding-right: 15px;
+  }
+
   &__nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+
+  &__navRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__iconDrawer {
+    display: block !important;
   }
 }

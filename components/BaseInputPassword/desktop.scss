@@ -1,10 +1,6 @@
 .BaseInputPassword {
   width: 100%;
 
-  &__root {
-    //margin-top: 16px !important;
-  }
-
   p {
     @include text($pastel-red, "Roboto-Regular", desktop(12px), 1.5, normal);
     color: $pastel-red !important;
@@ -12,7 +8,6 @@
   }
 
   > div {
-    //margin-top: 18px !important;
     > input {
       @include text(
         $text-gray-dark,

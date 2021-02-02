@@ -7,26 +7,6 @@
   overflow-y: initial;
   padding-bottom: mobile(50px);
 
-  &__userIcon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__avatar {
-    padding: mobile(100px) 0 mobile(30px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-bottom: solid 1px #d7d1d1;
-  }
-
-  &__title {
-    padding-top: mobile(27px);
-    @include text($font-color, "Roboto-Medium", mobile(16px), 1.25, normal);
-  }
-
   &__profession {
     padding-top: mobile(2px);
     @include text($grey-font, "Roboto-Regular", mobile(12px), 1.33, normal);

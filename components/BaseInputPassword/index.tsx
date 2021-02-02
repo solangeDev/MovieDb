@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 
 import styles from './index.module.scss';
 import IconButton from '@material-ui/core/IconButton';
@@ -11,7 +11,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 function BaseInputPassword(props) {
-  const [values, setValues] = React.useState({
+  const [values, setValues] = useState({
     showPassword: false,
   });
   const handleClickShowPassword = () => {

@@ -1,10 +1,6 @@
 .BaseInputPassword {
   width: 100%;
 
-  &__root {
-    //margin-top: 16px !important;
-  }
-
   p {
     @include text(
       $pastel-red,
@@ -18,7 +14,6 @@
   }
 
   > div {
-    //margin-top: 18px !important;
     > input {
       @include text(
         $text-gray-dark,

@@ -17,28 +17,6 @@ export default function useAxios(props) {
       return response;
     },
     (error) => {
-      console.log(error, "aqui");
-      /*const {
-        config,
-        response: { status },
-      } = error;
-      const originalRequest = config;*/
-      /*if (status === 401) {
-        return AXIOS.get('/auth/refresh-token', { headers: headers() })
-          .then(res => {
-            sessionStorage.setItem('GeoToken', res.data.geoToken);
-            originalRequest.headers['Authorization'] =
-              'Bearer ' + res.data.geoToken;
-            return axios(originalRequest);
-          })
-          .catch(error => {
-            Promise.reject(error);
-          });
-      }
-      if (status === 403) {
-        window.location.href = '/';
-        return Promise.reject(error);
-      }*/
       return Promise.reject(error.response);
     }
   );

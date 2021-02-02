@@ -7,32 +7,6 @@
   overflow-y: hidden;
   padding-bottom: 0;
 
-  &__userIcon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__avatar {
-    padding: desktopUltra(100px) 0 desktopUltra(30px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-bottom: solid 1px #d7d1d1;
-  }
-
-  &__title {
-    padding-top: desktopUltra(27px);
-    @include text(
-      $font-color,
-      "Roboto-Medium",
-      desktopUltra(16px),
-      1.25,
-      normal
-    );
-  }
-
   &__profession {
     padding-top: desktopUltra(2px);
     @include text(

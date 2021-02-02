@@ -7,26 +7,6 @@
   overflow-y: initial;
   padding-bottom: tablet(50px);
 
-  &__userIcon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  &__avatar {
-    padding: tablet(100px) 0 tablet(30px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-bottom: solid 1px #d7d1d1;
-  }
-
-  &__title {
-    padding-top: tablet(27px);
-    @include text($font-color, "Roboto-Medium", tablet(16px), 1.25, normal);
-  }
-
   &__profession {
     padding-top: tablet(2px);
     @include text($grey-font, "Roboto-Regular", tablet(12px), 1.33, normal);

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styles from "./index.module.scss";
 import BaseInput from "../../components/BaseInput";
 import BaseInputPassword from "../../components/BaseInputPassword";
-// import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import BaseButton from "../../components/BaseButton";
 import Alert from "../../components/Alert";
 import TopBar from "../../components/TopBar";
@@ -136,7 +135,7 @@ function LoginView(props) {
 
   return (
     <div>
-      <TopBar menuIcon={false} />
+      {/* <TopBar menuIcon={false} /> */}
       <section className={styles.LoginView}>
         <div className={styles.LoginView__wrapper}>
           <div className={styles.LoginView__title}>
