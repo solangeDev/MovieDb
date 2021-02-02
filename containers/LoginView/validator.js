@@ -2,7 +2,7 @@ import * as yup from "yup";
 
 const schema = yup.object().shape({
   userName: yup.string().required("Required field"),
-  password: yup.string().required("required field"),
+  password: yup.string().required("Required field"),
 });
 
 async function validateInputs(data, locale) {
