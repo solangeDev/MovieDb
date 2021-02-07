@@ -41,9 +41,6 @@ const MovieDetail: React.FC<MovieDetailProps> = ({ data }: MovieDetailProps) => 
     const handleChangeMenuState = (e) => {
         setActiveMenu(e);
     };
-
-    console.log(data, 'aqui');
-
     return (
         <div>
             <TopBar menuIcon={true} openNavBar={handleChangeOpenBar} open={openNavBar} />
