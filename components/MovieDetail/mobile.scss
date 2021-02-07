@@ -1,0 +1,40 @@
+.Movie {
+  &__sideBar {
+    width: 243px;
+    position: fixed;
+    top: 55px;
+    left: 0;
+    padding-top: 0;
+    z-index: 20;
+    height: calc(100vh - 50px);
+  }
+
+  &__feed {
+    width: 100%;
+    margin-top: mobile(50px);
+    padding: 0;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    margin-left: 0;
+    margin-top: 0;
+  }
+
+  &__notZIndex {
+    z-index: -1 !important;
+  }
+
+  &__hide {
+    display: none;
+  }
+
+  &__background {
+    max-width: mobile(1280px);
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+}

@@ -1,6 +1,24 @@
 import { URL } from "./constans";
 import useAxios from "../config/axios.config";
 
+export async function getMovieDetail(payload) {
+  let url = `${URL.GET_MOVIE_DETAIL}`;
+  url = url.replace("[MOVIE]", payload.movie_id);
+  const header = {
+    contentType: "application/json",
+  };
+  const AXIOS = useAxios(header);
+  return AXIOS.get(
+    `${process.env.API_HOST}/${url}?api_key=${process.env.API_KEY}&language=en-US`
+  )
+    .then((response) => {
+      return response;
+    })
+    .catch((error) => {
+      return error;
+    });
+}
+
 export async function markAsFavorite(payload) {
   let url = `${URL.MARK_AS_FAVORITE}`;
   url = url.replace("[ACCOUNT]", payload.account_id);

@@ -9,4 +9,5 @@ export const URL = {
   POPULAR_MOVIES: "3/movie/popular",
   FAVORITE_MOVIES: "3/account/[ACCOUNT]/favorite/movies",
   MARK_AS_FAVORITE: "3/account/[ACCOUNT]/favorite",
+  GET_MOVIE_DETAIL: "/3/movie/[MOVIE]",
 };

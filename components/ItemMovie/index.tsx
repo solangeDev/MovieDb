@@ -27,17 +27,25 @@ const StyledRating = withStyles({
 })(Rating);
 
 function ItemMovie(props) {
-  const rating = ((parseFloat(props.data.vote_average) * 5) / 10).toPrecision(
-    3
-  );
-  const redirect = () => {
-    console.log("redireccion");
+  const rating = ((parseFloat(props.data.vote_average) * 5) / 10).toPrecision(3);
+  const redirect = (e, item) => {
+    Router.push("/movie/[movie]", `/movie/${item.id}`);
   };
   return (
     <section className={styles.ItemMovie}>
-      <div className={styles.ItemMovie__container}>
+      <div
+        onClick={(e) => {
+          redirect(e, props.data);
+        }}
+        className={styles.ItemMovie__container}
+      >
         <div className={styles.ItemMovie__header}>
-          <div onClick={redirect} className={styles.ItemMovie__img}>
+          <div
+            onClick={(e) => {
+              redirect(e, props.data);
+            }}
+            className={styles.ItemMovie__img}
+          >
             <img
               src={`https://image.tmdb.org/t/p/w500/${props.data.poster_path}`}
             ></img>
