@@ -57,7 +57,7 @@ const Movie: NextPage<Props> = (context) => {
                 <title>Moviedb</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <MovieDetail data={data}></MovieDetail>;
+            <MovieDetail data={data}></MovieDetail>
         </div>
     );
 };
