@@ -37,8 +37,6 @@ const PopularMoviesLayout: React.FC<PopularMoviesLayoutProps> = ({}: PopularMovi
         setActiveMenu(e);
     };
 
-    useEffect(() => {}, [activeMenu]);
-
     return (
         <div>
             <TopBar menuIcon={true} openNavBar={handleChangeOpenBar} open={openNavBar} />

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getMovieDetail } from '../../services/movies';
 import MovieDetail from '../../components/MovieDetail';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
@@ -14,8 +14,14 @@ type MovieProps = {
     };
 };
 
+interface DataProps {
+    overview: string;
+}
+
 const Movie: React.FC<MovieProps> = ({ getFavorites, query }: MovieProps) => {
-    const [data, setData] = React.useState({});
+    const [data, setData] = useState<DataProps>(undefined);
+
+    // const [data, setData] = React.useState({});
     const getMovie = async () => {
         let data = await getMovieDetail({ movie_id: query.movie_id });
         if (data.status === 200) {
@@ -47,7 +53,7 @@ const Movie: React.FC<MovieProps> = ({ getFavorites, query }: MovieProps) => {
                 <title>Moviedb</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <MovieDetail data={data}></MovieDetail>
+            <MovieDetail data={data}></MovieDetail>;
         </div>
     );
 };
