@@ -1,30 +1,38 @@
-import React from "react";
-import styles from "./index.module.scss";
-import Button from "@material-ui/core/Button";
+import React from 'react';
+import styles from './index.module.scss';
+import Button from '@material-ui/core/Button';
 
-export default function BaseButton(props) {
-  let nameClass = `${styles.baseButton} ${
-    styles[`baseButton__${props.properties.type}`]
-  }`;
-  if (
-    props.properties.classHover !== undefined &&
-    props.properties.hover !== ""
-  ) {
-    nameClass += ` ${styles[`${props.properties.classHover}`]}`;
-  }
-  let title = props.properties.title;
-  return (
-    <Button
-      startIcon={props.startIcon}
-      type={props.properties.type}
-      classes={{
-        root: styles[`baseButton__${props.properties.className}`],
-      }}
-      disabled={props.properties.disabled}
-      onClick={props.onClick}
-      className={nameClass}
-    >
-      {title}
-    </Button>
-  );
-}
+type BaseButtonProps = {
+    properties: {
+        className: string;
+        hover?: string;
+        classHover: string;
+        title: string;
+        type: string;
+        disabled: boolean;
+        onClick: () => void;
+    };
+};
+
+const BaseButton: React.FC<BaseButtonProps> = ({ properties }: BaseButtonProps) => {
+    let nameClass = `${styles.baseButton} ${styles[`baseButton__${properties.type}`]}`;
+    if (properties.classHover !== undefined && properties.hover !== '') {
+        nameClass += ` ${styles[`${properties.classHover}`]}`;
+    }
+    const title = properties.title;
+    return (
+        <Button
+            type={properties.type}
+            classes={{
+                root: styles[`baseButton__${properties.className}`],
+            }}
+            disabled={properties.disabled}
+            onClick={properties.onClick}
+            className={nameClass}
+        >
+            {title}
+        </Button>
+    );
+};
+
+export default BaseButton;

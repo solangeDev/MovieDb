@@ -1,70 +1,79 @@
 .ItemMovie {
-  &__container {
-    max-width: 100%;
-    width: 100%;
-    padding: mobile(10px);
-    background-color: $white;
-    border-radius: 3px;
-    box-shadow: 0 -2px 5px 0 rgba(38, 38, 38, 0.2);
-    border: solid 1px #c5c5c5;
-  }
-
-  &__titleNav {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  &__like {
-    display: none;
-  }
-
-  &__img {
-    img {
-      width: mobile(100px);
-      height: mobile(100px);
-      border-radius: 3%;
-      cursor: pointer;
+    &__container {
+        max-width: 100%;
+        width: 100%;
+        padding: mobile(10px);
+        background-color: $white;
+        border-radius: 3px;
+        box-shadow: 0 -2px 5px 0 rgba(38, 38, 38, 0.2);
+        border: solid 1px #c5c5c5;
     }
-  }
 
-  &__header {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    align-items: center;
-    justify-content: flex-start;
-  }
-
-  &__title {
-    @include text($font-color, "Roboto-Bold", mobile(15px), normal, normal);
-  }
-
-  &__subtitle {
-    @include text(
-      $font-color2,
-      "Relawey-Regular",
-      mobile(10px),
-      normal,
-      normal
-    );
-  }
-
-  &__headerDetail {
-    div {
-      padding-bottom: 8px;
+    &__titleNav {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
     }
-  }
 
-  &__overview {
-    display: none;
-    padding-top: 10px;
-    text-align: justify;
-    @include text($font-color, "Montserrat-Regular", mobile(14px), normal, 1.2);
-  }
+    &__headerDesk {
+        display: none;
+    }
 
-  &__hide {
-    display: none;
-  }
+    &__headerMod {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1px;
+        div:first-child {
+            margin-left: -10px;
+        }
+    }
+
+    &__like {
+        display: none;
+    }
+
+    &__img {
+        img {
+            width: mobile(100px);
+            height: mobile(100px);
+            border-radius: 3%;
+            cursor: pointer;
+        }
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    &__title {
+        @include text($font-color, 'Roboto-Bold', mobile(15px), normal, normal);
+    }
+
+    &__subtitle {
+        @include text($font-color2, 'Relawey-Regular', mobile(10px), normal, normal);
+    }
+
+    &__headerDetail {
+        div {
+            padding-bottom: 8px;
+        }
+    }
+
+    &__overview {
+        display: none;
+        padding-top: 10px;
+        text-align: justify;
+        @include text($font-color, 'Montserrat-Regular', mobile(14px), normal, 1.2);
+    }
+
+    &__hide {
+        display: none;
+    }
 }

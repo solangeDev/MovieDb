@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useContext } from "react";
-import Head from 'next/head'
-import TopMoviesLayout from '../containers/TopMoviesLayout'
-import { selectUser } from "../redux/user/userSelectors";
-import Router from "next/router";
-import { connect } from "react-redux";
+import React, { useEffect } from 'react';
+import Head from 'next/head';
+import TopMoviesLayout from '../containers/TopMoviesLayout';
+import { selectUser } from '../redux/user/userSelectors';
+import Router from 'next/router';
+import { connect } from 'react-redux';
 
 function TopMovies(props) {
     useEffect(() => {
-        if (props.session.session_id === "") {
-            Router.push("/", `/`);
+        if (props.session.session_id === '') {
+            Router.push('/', `/`);
         }
     }, [props.session]);
 
-    if (props.session.session_id === "") {
+    if (props.session.session_id === '') {
         return null;
     } else {
         return (
@@ -31,7 +31,7 @@ function TopMovies(props) {
 }
 
 const mapStateToProps = (state) => ({
-    session: selectUser(state)
+    session: selectUser(state),
 });
 
 const mapDispatchToProps = {};

@@ -2,7 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Alert from '@material-ui/lab/Alert';
 import { Animated } from 'react-animated-css';
 
-export default function AlertComponent(props) {
+type AlertComponentProps = {
+    data: {
+        show: boolean;
+        message: string;
+        type: string;
+    };
+    onClose: () => void;
+};
+
+const AlertComponent: React.FC<AlertComponentProps> = ({ data, onClose }: AlertComponentProps) => {
     const [loadAlert, setLoadAlert] = useState(false);
 
     useEffect(() => {
@@ -15,20 +24,22 @@ export default function AlertComponent(props) {
             animationOut="fadeOutDown"
             animationInDuration={1000}
             animationOutDuration={1000}
-            isVisible={props.data.show}
+            isVisible={data.show}
         >
-            {props.data.show && (
+            {data.show && (
                 <Alert
                     onClose={() => {
-                        props.onClose();
+                        onClose();
                     }}
-                    severity={props.data.type}
+                    severity={data.type}
                 >
-                    {props.data.message}
+                    {data.message}
                 </Alert>
             )}
         </Animated>
     );
 
     return <div>{loadAlert ? alert : ''}</div>;
-}
+};
+
+export default AlertComponent;

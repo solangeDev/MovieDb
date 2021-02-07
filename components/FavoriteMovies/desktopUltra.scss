@@ -1,12 +1,16 @@
 .FavoriteMovies {
-  &__item {
-    margin-bottom: desktopUltra(30px);
-  }
-  &__loader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-  }
+    &__item {
+        margin-bottom: desktopUltra(30px);
+    }
+    &__loader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+    }
+
+    &__alert {
+        margin: desktopUñtra(20px) desktopUñtra(35px) desktopUñtra(20px) 0;
+    }
 }

@@ -1,36 +1,41 @@
-import React, { useState, useEffect, useContext } from "react";
-import Head from "next/head";
-import LoginView from "../containers/LoginView";
-import Router from "next/router";
-import { selectUser } from "../redux/user/userSelectors";
-import { connect } from "react-redux";
-import RecentMoviesLayout from "../containers/RecentMoviesLayout";
+import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
+import LoginView from '../containers/LoginView';
+import Router from 'next/router';
+import { selectUser } from '../redux/user/userSelectors';
+import { connect } from 'react-redux';
 
-function Home(props) {
-  const [loginWrapper, setLoginWrapper] = useState(false);
-  useEffect(() => {
-    setLoginWrapper(props.session.session_id === "");
-    if (props.session.session_id !== "") {
-      Router.push("/dashboard", `/dashboard`);
-    }
-  }, [props.session]);
+type HomeProps = {
+    session: {
+        session_id: string;
+    };
+};
 
-  return (
-    <div>
-      <Head>
-        <meta httpEquiv="Content-Type" content="text / html; charset = utf-8" />
-        {/* agregar metadadata descripción */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Moviedb</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      {loginWrapper && <LoginView />}
-    </div>
-  );
-}
+const Home: React.FC<HomeProps> = ({ session }: HomeProps) => {
+    const [loginWrapper, setLoginWrapper] = useState(false);
+    useEffect(() => {
+        setLoginWrapper(session.session_id === '');
+        if (session.session_id !== '') {
+            Router.push('/dashboard', `/dashboard`);
+        }
+    }, [session]);
+
+    return (
+        <div>
+            <Head>
+                <meta httpEquiv="Content-Type" content="text / html; charset = utf-8" />
+                {/* agregar metadadata descripción */}
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title>Moviedb</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            {loginWrapper && <LoginView />}
+        </div>
+    );
+};
 
 const mapStateToProps = (state) => ({
-  session: selectUser(state),
+    session: selectUser(state),
 });
 
 const mapDispatchToProps = {};

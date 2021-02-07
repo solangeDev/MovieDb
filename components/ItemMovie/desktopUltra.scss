@@ -1,83 +1,73 @@
 .ItemMovie {
-  &__container {
-    max-width: 1025px;
-    width: 100%;
-    padding: 30px;
-    background-color: $white;
-    border-radius: 3px;
-    box-shadow: 0 -2px 5px 0 rgba(38, 38, 38, 0.2);
-    border: solid 1px #c5c5c5;
-  }
-
-  &__titleNav {
-    display: grid;
-    grid-template-columns: 650px 1fr;
-    gap: 30px;
-    padding-bottom: 30px;
-  }
-
-  &__like {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  &__img {
-    img {
-      width: 150px;
-      height: auto;
-      border-radius: 3%;
-      cursor: pointer;
+    &__container {
+        max-width: 1025px;
+        width: 100%;
+        padding: 30px;
+        background-color: $white;
+        border-radius: 3px;
+        box-shadow: 0 -2px 5px 0 rgba(38, 38, 38, 0.2);
+        border: solid 1px #c5c5c5;
     }
-  }
 
-  &__header {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-
-  &__title {
-    @include text(
-      $font-color,
-      "Roboto-Bold",
-      desktopUltra(25px),
-      normal,
-      normal
-    );
-  }
-
-  &__subtitle {
-    @include text(
-      $font-color2,
-      "Relawey-Regular",
-      desktopUltra(14px),
-      normal,
-      normal
-    );
-  }
-
-  &__headerDetail {
-    div {
-      padding-bottom: 8px;
+    &__headerDesk {
+        display: block;
     }
-  }
 
-  &__overview {
-    padding-top: 10px;
-    text-align: justify;
-    @include text(
-      $font-color,
-      "Montserrat-Regular",
-      desktopUltra(16px),
-      normal,
-      1.2
-    );
-  }
+    &__headerMod {
+        display: none;
+    }
 
-  &__hide {
-    display: none;
-  }
+    &__titleNav {
+        display: grid;
+        grid-template-columns: 650px 1fr;
+        gap: 30px;
+        padding-bottom: 30px;
+    }
+
+    &__like {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    &__img {
+        img {
+            width: 150px;
+            height: auto;
+            border-radius: 3%;
+            cursor: pointer;
+        }
+    }
+
+    &__header {
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    &__title {
+        @include text($font-color, 'Roboto-Bold', desktopUltra(25px), normal, normal);
+    }
+
+    &__subtitle {
+        @include text($font-color2, 'Relawey-Regular', desktopUltra(14px), normal, normal);
+    }
+
+    &__headerDetail {
+        div {
+            padding-bottom: 8px;
+        }
+    }
+
+    &__overview {
+        padding-top: 10px;
+        text-align: justify;
+        @include text($font-color, 'Montserrat-Regular', desktopUltra(16px), normal, 1.2);
+    }
+
+    &__hide {
+        display: none;
+    }
 }
