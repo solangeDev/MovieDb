@@ -11,7 +11,7 @@
 
     &__feed {
         width: 100%;
-        margin-top: mobile(50px);
+        margin-top: 50px;
         padding: 0;
     }
 
@@ -60,6 +60,8 @@
     }
 
     &__descriptionImage {
+        display: flex;
+        justify-content: center;
         padding: tablet(40px) tablet(50px);
     }
 
