@@ -4,29 +4,30 @@ import MovieDetail from '../../components/MovieDetail';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
 import Head from 'next/head';
 import { connect } from 'react-redux';
-
-type MovieProps = {
-    getFavorites: {
-        items: [{ id: number }];
-    };
-    query: {
-        movie_id: number;
-    };
-};
+import { NextPage, NextPageContext } from 'next';
+import { string } from 'yup';
 
 interface DataProps {
     overview: string;
 }
+interface Props {
+    context?: {
+        movie_id: string;
+        getFavorites: {
+            items: [{ id: number }];
+        };
+    };
+}
 
-const Movie: React.FC<MovieProps> = ({ getFavorites, query }: MovieProps) => {
-    const [data, setData] = useState<DataProps>(undefined);
-
-    // const [data, setData] = React.useState({});
+const Movie: NextPage<Props> = (context) => {
+    const [data, setData] = useState<DataProps>({
+        overview: '',
+    });
     const getMovie = async () => {
-        let data = await getMovieDetail({ movie_id: query.movie_id });
+        let data = await getMovieDetail({ movie_id: context.movie_id });
         if (data.status === 200) {
             data = data.data;
-            const valid = getFavorites.items.filter((a) => {
+            const valid = context.getFavorites.items.filter((a) => {
                 if (a.id === data.id) {
                     return a;
                 }
@@ -35,7 +36,6 @@ const Movie: React.FC<MovieProps> = ({ getFavorites, query }: MovieProps) => {
             setData({ ...data, data });
         }
     };
-
     useEffect(() => {
         getMovie();
     }, []);
@@ -58,8 +58,8 @@ const Movie: React.FC<MovieProps> = ({ getFavorites, query }: MovieProps) => {
     );
 };
 
-Movie.getInitialProps = async ({ query }) => {
-    return { query };
+Movie.getInitialProps = async (context) => {
+    return context.query;
 };
 
 const mapStateToProps = (state) => ({
