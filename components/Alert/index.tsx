@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styles from "./index.module.scss";
-import Alert from "@material-ui/lab/Alert";
-import { Animated } from "react-animated-css";
+import React, { useState, useEffect } from 'react';
+import Alert from '@material-ui/lab/Alert';
+import { Animated } from 'react-animated-css';
 
 export default function AlertComponent(props) {
   const [loadAlert, setLoadAlert] = useState(false);
@@ -31,5 +30,5 @@ export default function AlertComponent(props) {
     </Animated>
   );
 
-  return <div>{loadAlert ? alert : ""}</div>;
+  return <div>{loadAlert ? alert : ''}</div>;
 }
