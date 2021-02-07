@@ -4,8 +4,7 @@ import MovieDetail from '../../components/MovieDetail';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
 import Head from 'next/head';
 import { connect } from 'react-redux';
-import { NextPage, NextPageContext } from 'next';
-import { string } from 'yup';
+import { NextPage } from 'next';
 
 interface DataProps {
     overview: string;
