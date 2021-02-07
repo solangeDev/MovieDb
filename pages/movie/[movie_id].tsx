@@ -11,6 +11,10 @@ interface DataProps {
     overview: string;
 }
 interface Props {
+    movie_id?: string;
+    getFavorites?: {
+        items: [{ id: number }];
+    };
     context?: {
         movie_id: string;
         getFavorites: {
