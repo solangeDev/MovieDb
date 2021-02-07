@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 
 type MovieProps = {
     getFavorites: {
-        items: [];
+        items: [{ id: number }];
     };
     query: {
         movie_id: number;
@@ -47,7 +47,7 @@ const Movie: React.FC<MovieProps> = ({ getFavorites, query }: MovieProps) => {
                 <title>Moviedb</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <MovieDetail data={data}></MovieDetail>;
+            <MovieDetail data={data}></MovieDetail>
         </div>
     );
 };

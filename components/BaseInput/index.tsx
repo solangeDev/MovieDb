@@ -6,13 +6,13 @@ import styles from './index.module.scss';
 type BaseInputProps = {
     properties: {
         label: string;
-        type: string;
+        type: 'text' | 'password' | undefined;
         name: string;
         maxlength?: number;
         id: string;
-        autoComplete: string;
+        autoComplete?: string;
         helperText: string;
-        className: string;
+        className?: string;
         value: string;
         error: boolean;
         leftAdornment?: {
@@ -27,7 +27,7 @@ type BaseInputProps = {
             iconClass: string;
         };
     };
-    handleOnBlur?: () => void;
+    handleOnBlur?: ({}) => void;
     onChange: (e) => void;
     onKeyUp?: () => void;
     onInput?: () => void;
@@ -69,8 +69,8 @@ const BaseInput: React.FC<BaseInputProps> = ({
                 startAdornment: leftAdornment,
                 endAdornment: rightAdornment,
                 /**
-          false => nope, true => on
-        * */
+                    false => nope, true => on
+                * */
                 autoComplete: properties.autoComplete === undefined ? 'on' : properties.autoComplete,
             }}
             key={properties.id}

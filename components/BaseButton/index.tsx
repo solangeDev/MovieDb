@@ -4,17 +4,18 @@ import Button from '@material-ui/core/Button';
 
 type BaseButtonProps = {
     properties: {
+        loading: boolean;
         className: string;
         hover?: string;
         classHover: string;
         title: string;
-        type: string;
+        type: 'button' | 'submit' | undefined;
         disabled: boolean;
-        onClick: () => void;
     };
+    onClick?: () => void;
 };
 
-const BaseButton: React.FC<BaseButtonProps> = ({ properties }: BaseButtonProps) => {
+const BaseButton: React.FC<BaseButtonProps> = ({ properties, onClick }: BaseButtonProps) => {
     let nameClass = `${styles.baseButton} ${styles[`baseButton__${properties.type}`]}`;
     if (properties.classHover !== undefined && properties.hover !== '') {
         nameClass += ` ${styles[`${properties.classHover}`]}`;
@@ -27,7 +28,7 @@ const BaseButton: React.FC<BaseButtonProps> = ({ properties }: BaseButtonProps) 
                 root: styles[`baseButton__${properties.className}`],
             }}
             disabled={properties.disabled}
-            onClick={properties.onClick}
+            onClick={onClick}
             className={nameClass}
         >
             {title}

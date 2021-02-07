@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { listFavoriteMovies, markAsFavorite } from '../../services/movies';
+import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ItemMovie from '../../components/ItemMovie';
 import { selectUser } from '../../redux/user/userSelectors';
@@ -17,20 +18,28 @@ type FavoriteMoviesProps = {
         };
     };
     getFavorites: {
-        items: [];
+        items: [{ id: number }];
     };
     setFavorite: (a) => void;
 };
+
+interface Alert {
+    show: boolean;
+    message?: string;
+    type: 'error' | 'success' | 'info' | 'warning' | undefined;
+}
 
 const FavoriteMovies: React.FC<FavoriteMoviesProps> = ({ session, getFavorites, setFavorite }: FavoriteMoviesProps) => {
     const scrollToTop = () => {
         scroll.scrollToTop();
     };
-    const [alert, setAlert] = useState({
+
+    const [alert, setAlert] = useState<Alert>({
         show: false,
         type: 'error',
         message: '',
     });
+
     const [scrollList, setScrollList] = React.useState({
         page: 1,
         results: [],
@@ -93,6 +102,7 @@ const FavoriteMovies: React.FC<FavoriteMoviesProps> = ({ session, getFavorites, 
                         return a;
                     }
                 });
+
                 setScrollList({ ...scrollList, results: newData });
                 const newFavorites = getFavorites.items.filter((a) => {
                     if (a.id !== item.id) {
@@ -117,7 +127,7 @@ const FavoriteMovies: React.FC<FavoriteMoviesProps> = ({ session, getFavorites, 
         <section className={styles.FavoriteMovies}>
             <div className={styles.FavoriteMovies__feed}>
                 <div className={styles.FavoriteMovies__alert}>
-                    <Alert onClose={handleCloseAlert} data={alert}></Alert>
+                    <Alert data={alert} onClose={handleCloseAlert}></Alert>
                 </div>
                 <InfiniteScroll
                     dataLength={scrollList.results.length}
@@ -142,6 +152,7 @@ const FavoriteMovies: React.FC<FavoriteMoviesProps> = ({ session, getFavorites, 
 
 const mapStateToProps = (state) => ({
     session: selectUser(state),
+    getFavorites: getFavorites(state),
 });
 
 const mapDispatchToProps = {};

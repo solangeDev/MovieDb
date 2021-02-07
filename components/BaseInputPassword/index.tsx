@@ -13,26 +13,15 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 type BaseInputProps = {
     properties: {
         label: string;
-        type: string;
+        type: 'password' | undefined;
         name: string;
         maxlength?: number;
         id: string;
-        autoComplete: string;
+        autoComplete?: string;
         helperText: string;
-        className: string;
+        className?: string;
         value: string;
         error: boolean;
-        leftAdornment: {
-            visibility: boolean;
-            rootClass: string;
-            iconClass: string;
-            text: string;
-        };
-        rightAdornment: {
-            rootClass: string;
-            visibility: string;
-            iconClass: string;
-        };
     };
     onChange: (e) => void;
 };

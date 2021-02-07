@@ -31,6 +31,8 @@ type ItemMovieProps = {
         isFavorite: boolean;
         release_date: string;
         overview: string;
+        poster_path: string;
+        backdrop_path: string;
     };
     module?: string;
     getFavoriteValue?: (a, b) => void;

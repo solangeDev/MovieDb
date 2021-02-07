@@ -18,8 +18,46 @@ type LoginViewProps = {
     setUser: (e) => void;
 };
 
+interface Alert {
+    show: boolean;
+    message?: string;
+    type: 'error' | 'success' | 'info' | 'warning' | undefined;
+}
+
+interface InputPasswordProps {
+    label: string;
+    type: 'password' | undefined;
+    name: string;
+    maxlength?: number;
+    id: string;
+    helperText: string;
+    value: string;
+    error: boolean;
+}
+
+interface InputBaseProps {
+    label: string;
+    type: 'text' | 'password' | undefined;
+    name: string;
+    maxlength?: number;
+    id: string;
+    helperText: string;
+    value: string;
+    error: boolean;
+}
+
+interface BaseButtonProps {
+    className: string;
+    hover?: string;
+    classHover: string;
+    title: string;
+    type: 'button' | 'submit' | undefined;
+    disabled: boolean;
+    loading: boolean;
+}
+
 const LoginView: React.FC<LoginViewProps> = ({ setUser }: LoginViewProps) => {
-    const [buttonSubmit, setButtonSubmit] = useState({
+    const [buttonSubmit, setButtonSubmit] = useState<BaseButtonProps>({
         disabled: false,
         className: 'btnBlue',
         title: 'Inicia sesión',
@@ -28,29 +66,28 @@ const LoginView: React.FC<LoginViewProps> = ({ setUser }: LoginViewProps) => {
         loading: false,
     });
 
-    const [userName, setUserName] = useState({
-        value: '',
-        id: 'userName',
+    const [userName, setUserName] = useState<InputBaseProps>({
         label: 'User name',
-        type: 'test',
+        type: 'text',
         name: 'userName',
-        path: 'userName',
-        error: false,
+        id: 'userName',
         helperText: '',
+        value: '',
+        error: false,
     });
 
-    const [password, setPassword] = useState({
+    const [password, setPassword] = useState<InputPasswordProps>({
+        type: 'password',
         value: '',
         id: 'password',
         label: 'Password',
         name: 'password',
-        path: 'Password',
         error: false,
         helperText: '',
         maxlength: 30,
     });
 
-    const [alert, setAlert] = useState({
+    const [alert, setAlert] = useState<Alert>({
         show: false,
         type: 'error',
         message: '',
@@ -159,18 +196,11 @@ const LoginView: React.FC<LoginViewProps> = ({ setUser }: LoginViewProps) => {
                     <div className={styles.LoginView__title}>MovieDB</div>
                     <form onSubmit={handleSubmit} className={styles.LoginView__container}>
                         <div className={styles.LoginView__item}>
-                            <BaseInput
-                                error={userName.error}
-                                value={userName.value}
-                                onChange={handleChangeUserName}
-                                properties={userName}
-                            ></BaseInput>
+                            <BaseInput properties={userName} onChange={handleChangeUserName}></BaseInput>
                         </div>
                         <div className={styles.LoginView__item}>
                             <BaseInputPassword
-                                error={password.error}
                                 onChange={handleChangePassword}
-                                value={password.value}
                                 properties={password}
                             ></BaseInputPassword>
                         </div>

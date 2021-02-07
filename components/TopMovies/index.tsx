@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 type TopMoviesProps = {
     getFavorites: {
-        items: [];
+        items: [{ id: number }];
     };
     session: {
         account: {
@@ -24,12 +24,18 @@ type TopMoviesProps = {
     setFavorite: (a) => void;
 };
 
+interface Alert {
+    show: boolean;
+    message?: string;
+    type: 'error' | 'success' | 'info' | 'warning' | undefined;
+}
+
 const TopMovies: React.FC<TopMoviesProps> = ({ getFavorites, session }: TopMoviesProps) => {
     const scrollToTop = () => {
         scroll.scrollToTop();
     };
 
-    const [alert, setAlert] = useState({
+    const [alert, setAlert] = useState<Alert>({
         show: false,
         type: 'error',
         message: '',
@@ -100,7 +106,7 @@ const TopMovies: React.FC<TopMoviesProps> = ({ getFavorites, session }: TopMovie
                 setScrollList({ ...scrollList, results: newData });
                 let newFavorites = [];
                 if (payload.body.favorite) {
-                    newFavorites = getFavorites.items.push(item);
+                    getFavorites.items.push(item);
                 } else {
                     newFavorites = getFavorites.items.filter((a) => {
                         if (a.id !== item.id) {

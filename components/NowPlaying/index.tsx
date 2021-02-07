@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 
 type NavBarProps = {
     getFavorites: {
-        items: [];
+        items: [{ id: number }];
     };
     session: {
         account: {
@@ -24,12 +24,18 @@ type NavBarProps = {
     setFavorite: (a) => void;
 };
 
+interface Alert {
+    show: boolean;
+    message?: string;
+    type: 'error' | 'success' | 'info' | 'warning' | undefined;
+}
+
 const NowPlaying: React.FC<NavBarProps> = ({ getFavorites, session, setFavorite }: NavBarProps) => {
     const scrollToTop = () => {
         scroll.scrollToTop();
     };
 
-    const [alert, setAlert] = useState({
+    const [alert, setAlert] = useState<Alert>({
         show: false,
         type: 'error',
         message: '',
@@ -108,7 +114,7 @@ const NowPlaying: React.FC<NavBarProps> = ({ getFavorites, session, setFavorite 
                 setScrollList({ ...scrollList, results: newData });
                 let newFavorites = [];
                 if (payload.body.favorite) {
-                    newFavorites = getFavorites.items.push(item);
+                    getFavorites.items.push(item);
                 } else {
                     newFavorites = getFavorites.items.filter((a) => {
                         if (a.id !== item.id) {

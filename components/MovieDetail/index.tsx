@@ -10,14 +10,21 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 type MovieDetailProps = {
-    data: { title: string; vote_average: string; overview: string; release_date: string };
+    data: {
+        title: string;
+        vote_average: string;
+        overview: string;
+        release_date: string;
+        poster_path: string;
+        backdrop_path: string;
+    };
 };
 
 const MovieDetail: React.FC<MovieDetailProps> = ({ data }: MovieDetailProps) => {
     const [openNavBar, setOpenNavBar] = useState(true);
     const [activeMenu, setActiveMenu] = useState('dashboard');
     const [width, setWidth] = useState(process.browser ? window.innerWidth : 0);
-
+    const percentage = (parseFloat(data.vote_average) * 100) / 10;
     useEffect(() => {
         function handleResize() {
             setWidth(process.browser ? window.innerWidth : 0);
@@ -92,8 +99,8 @@ const MovieDetail: React.FC<MovieDetailProps> = ({ data }: MovieDetailProps) => 
                                                         : '#049807',
                                             },
                                         }}
-                                        value={((parseFloat(data.vote_average) * 100) / 10).toFixed(2)}
-                                        text={`${((parseFloat(data.vote_average) * 100) / 10).toFixed(2)}%`}
+                                        value={percentage}
+                                        text={`${percentage}%`}
                                     />
                                 </div>
                                 <div className={styles.Movie__overview}>{data.overview}</div>

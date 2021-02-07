@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Alert from '@material-ui/lab/Alert';
+import Alert, { Color } from '@material-ui/lab/Alert';
 import { Animated } from 'react-animated-css';
 
 type AlertComponentProps = {
     data: {
         show: boolean;
-        message: string;
-        type: 'success';
+        message?: string;
+        type: 'error' | 'success' | 'info' | 'warning' | undefined;
     };
     onClose: () => void;
 };
