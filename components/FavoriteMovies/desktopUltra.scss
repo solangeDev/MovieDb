@@ -1,12 +1,7 @@
-.PopularMovies {
+.FavoriteMovies {
   &__item {
-    margin: mobile(20px);
+    margin-bottom: desktopUltra(30px);
   }
-
-  &__alert {
-    margin: mobile(20px);
-  }
-
   &__loader {
     display: flex;
     flex-direction: row;

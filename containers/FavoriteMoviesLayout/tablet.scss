@@ -1,0 +1,31 @@
+.Dashboard {
+  &__sideBar {
+    width: 243px;
+    position: fixed;
+    top: tablet(64px);
+    left: 0;
+    padding-top: 0;
+    z-index: 20;
+    height: calc(100vh - tablet(50px));
+  }
+
+  &__feed {
+    width: 100%;
+    padding: 0 tablet(25px);
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: row;
+    margin-left: 0;
+    margin-top: tablet(40px);
+  }
+
+  &__notZIndex {
+    z-index: -1 !important;
+  }
+
+  &__hide {
+    display: none;
+  }
+}

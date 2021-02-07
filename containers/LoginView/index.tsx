@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import styles from "./index.module.scss";
 import BaseInput from "../../components/BaseInput";
 import BaseInputPassword from "../../components/BaseInputPassword";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 import BaseButton from "../../components/BaseButton";
 import Alert from "../../components/Alert";
 import TopBar from "../../components/TopBar";
@@ -10,6 +12,7 @@ import { getRequestToken, logIn } from "../../services/user";
 import Router from "next/router";
 import { setUser } from "../../redux/user/userActions";
 import { connect } from "react-redux";
+import Link from "next/link";
 
 function LoginView(props) {
   const [buttonSubmit, setButtonSubmit] = useState({
@@ -89,7 +92,7 @@ function LoginView(props) {
             if (r.status == 200) {
               return r;
             } else {
-             console.log(r, 'error') 
+              console.log(r, "error");
             }
           })
           .catch((e) => {
@@ -101,28 +104,30 @@ function LoginView(props) {
             });
             console.error(e);
           });
-          if(requestToken.status === 200){
-            requestToken = requestToken.data;
-            await logIn({
-              "username": userName.value,
-              "password": password.value,
-              "request_token": requestToken.request_token
-            }).then((response)=>{
-              if(response.success === true){
-                props.setUser(response)
+        if (requestToken.status === 200) {
+          requestToken = requestToken.data;
+          await logIn({
+            username: userName.value,
+            password: password.value,
+            request_token: requestToken.request_token,
+          })
+            .then((response) => {
+              if (response.success === true) {
+                props.setUser(response);
                 Router.replace("/dashboard", `/dashboard`);
-              }else{
-                throw response.data.status_message
+              } else {
+                throw response.data.status_message;
               }
-            }) .catch((e) => {
-            setAlert({
-              ...alert,
-              show: true,
-              message: e,
-              type: "error",
+            })
+            .catch((e) => {
+              setAlert({
+                ...alert,
+                show: true,
+                message: e,
+                type: "error",
+              });
             });
-          });
-          }
+        }
       } catch (error) {
         console.log(error);
       }
@@ -135,12 +140,19 @@ function LoginView(props) {
 
   return (
     <div>
+      <header>
+        <AppBar position="static">
+          <Toolbar className={styles.LoginView__topBarNav}>
+          <Link href="/dashboard" as={`/dashboard`}>
+              <div className={styles.LoginView__topBarTitle}>Moviedb</div>
+            </Link>
+          </Toolbar>
+        </AppBar>
+      </header>
       {/* <TopBar menuIcon={false} /> */}
       <section className={styles.LoginView}>
         <div className={styles.LoginView__wrapper}>
-          <div className={styles.LoginView__title}>
-            MovieDB
-          </div>
+          <div className={styles.LoginView__title}>MovieDB</div>
           <form onSubmit={handleSubmit} className={styles.LoginView__container}>
             <div className={styles.LoginView__item}>
               <BaseInput
@@ -174,7 +186,7 @@ function LoginView(props) {
 const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = {
-  setUser
+  setUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginView);

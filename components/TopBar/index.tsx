@@ -12,11 +12,27 @@ import { connect } from "react-redux";
 import { cleanUser } from "../../redux/user/userActions";
 import { logOut } from "../../services/user";
 import { selectUser } from "../../redux/user/userSelectors";
+import {fetchFavorites} from "../../redux/favoriteMovies/favoriteMoviesActions"
 import styles from "./index.module.scss";
 import Link from "next/link";
 import Router from "next/router";
 
 function TopBar(props) {
+
+  useEffect(()=>{
+    const payload = {
+      account_id : props.session.account.id,
+        session_id : props.session.session_id,
+        page: 1
+    }
+    getFavorites(payload);
+  },[])
+
+  const getFavorites = async (payload)=>{
+    props.fetchFavorites(payload)
+  }
+
+
   const logout = async () => {
     try {
       await logOut({
@@ -95,6 +111,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   cleanUser,
+  fetchFavorites,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopBar);

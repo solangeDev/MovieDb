@@ -7,7 +7,7 @@ const initialState = {
   session_id: "",
 };
 
-const userReducer = (state = initialState, action) => {
+const favoriteMoviesReducer = (state = initialState, action) => {
   switch (action.type) {
     case userTypes.SET_USER:
       return { ...state, ...action.payload };
@@ -24,4 +24,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export default favoriteMoviesReducer;

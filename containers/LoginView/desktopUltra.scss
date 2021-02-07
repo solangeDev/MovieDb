@@ -7,6 +7,25 @@
   background-color: #f9fafb;
   position: relative;
 
+  &__topBarNav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__topBarTitle {
+    cursor: pointer;
+    @include text(
+      $white,
+      "Montserrat-Bold",
+      desktopUltra(24px),
+      normal,
+      normal
+    );
+    text-decoration: underline;
+  }
+
   &__alert {
     padding-top: desktopUltra(20px);
   }

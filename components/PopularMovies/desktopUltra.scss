@@ -2,4 +2,16 @@
   &__item {
     margin-bottom: desktopUltra(30px);
   }
+
+  &__alert {
+    margin: desktopUltra(20px) desktopUltra(35px) desktopUltra(20px) 0;
+  }
+
+  &__loader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+  }
 }

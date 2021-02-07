@@ -7,4 +7,6 @@ export const URL = {
   NOW_PLAYING: "3/movie/now_playing",
   TOP_MOVIES: "3/movie/top_rated",
   POPULAR_MOVIES: "3/movie/popular",
+  FAVORITE_MOVIES: "3/account/[ACCOUNT]/favorite/movies",
+  MARK_AS_FAVORITE: "3/account/[ACCOUNT]/favorite",
 };

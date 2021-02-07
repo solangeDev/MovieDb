@@ -6,7 +6,7 @@ import { selectUser } from "../redux/user/userSelectors";
 import { connect } from "react-redux";
 import RecentMoviesLayout from "../containers/RecentMoviesLayout";
 
-function Home(props) {
+function Login(props) {
   const [loginWrapper, setLoginWrapper] = useState(false);
   useEffect(() => {
     setLoginWrapper(props.session.session_id === "");
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

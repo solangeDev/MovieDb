@@ -63,4 +63,8 @@
     text-align: justify;
     @include text($font-color, "Montserrat-Regular", mobile(14px), normal, 1.2);
   }
+
+  &__hide {
+    display: none;
+  }
 }
