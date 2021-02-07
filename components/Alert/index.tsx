@@ -6,7 +6,7 @@ type AlertComponentProps = {
     data: {
         show: boolean;
         message: string;
-        type: string;
+        type: 'success';
     };
     onClose: () => void;
 };

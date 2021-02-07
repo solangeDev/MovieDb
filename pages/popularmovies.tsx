@@ -18,8 +18,11 @@ function PopularMovies(props) {
         return (
             <div>
                 <Head>
-                    <meta httpEquiv="Content-Type" content="text / html; charset = utf-8" />
-                    {/* agregar metadadata descripción */}
+                    <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+                    <meta
+                        name="keywords"
+                        content="Movies, TV Shows, Streaming, Reviews, API, Actors, Actresses, Photos, User Ratings, Synopsis, Trailers, Teasers, Credits, Cast"
+                    ></meta>
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <title>Moviedb</title>
                     <link rel="icon" href="/favicon.ico" />

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { getMovieDetail } from '../../services/movies';
 import MovieDetail from '../../components/MovieDetail';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
+import Head from 'next/head';
 import { connect } from 'react-redux';
 
 type MovieProps = {
@@ -33,7 +34,22 @@ const Movie: React.FC<MovieProps> = ({ getFavorites, query }: MovieProps) => {
         getMovie();
     }, []);
 
-    return <MovieDetail data={data}></MovieDetail>;
+    return (
+        <div>
+            <Head>
+                <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+                <meta name="description" content={data.overview}></meta>
+                <meta
+                    name="keywords"
+                    content="Movies, TV Shows, Streaming, Reviews, API, Actors, Actresses, Photos, User Ratings, Synopsis, Trailers, Teasers, Credits, Cast"
+                ></meta>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <title>Moviedb</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <MovieDetail data={data}></MovieDetail>;
+        </div>
+    );
 };
 
 Movie.getInitialProps = async ({ query }) => {
