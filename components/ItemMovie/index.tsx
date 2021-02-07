@@ -38,7 +38,7 @@ type ItemMovieProps = {
 const ItemMovie: React.FC<ItemMovieProps> = ({ data, module, getFavoriteValue }: ItemMovieProps) => {
     const rating = ((parseFloat(data.vote_average) * 5) / 10).toPrecision(3);
     const redirect = (e, item) => {
-        // Router.push('/movie/[movie]', `/movie/${item.id}`);
+        Router.push('/movie/[movie]', `/movie/${item.id}`);
     };
     return (
         <section className={styles.ItemMovie}>
