@@ -83,10 +83,15 @@ function MovieDetail(props) {
         <article className={styles.Movie__feed}>
           <div className={styles.Movie__background}>
             <img src="https://image.tmdb.org/t/p/w500//52AfXWuXCHn3UjD17rBruA9f5qb.jpg"></img>
+            <div className={styles.Movie__opacity}></div>
+            <div className={styles.Movie__description}>
+             <div className={styles.Movie__descriptionImage}>
+               <img src="https://picsum.photos/200/300" alt="movie-picture"/>
+             </div>
+             <div className={styles.Movie__descriptionText}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore blanditiis quas ut sunt non, autem, atque nihil, accusamus deleniti dolorem recusandae eos saepe debitis nobis sed possimus cum laboriosam. Cumque?</div> 
+            </div>
           </div>
-          <div className={styles.Movie__opacity}>
 
-          </div>
           <div></div>
         </article>
       </section>
