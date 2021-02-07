@@ -1,58 +1,99 @@
 .Movie {
-  &__sideBar {
-    width: 243px;
-    position: fixed;
-    top: 64px;
-    left: 0;
-    padding-top: 0;
-    z-index: 20;
-    height: calc(100vh - 50px);
-  }
-
-  &__feed {
-    width: 100%;
-    margin-top: tablet(65px);
-    padding: 0;
-  }
-
-  &__body {
-    display: flex;
-    flex-direction: row;
-    margin-left: 0;
-    margin-top: 0;
-  }
-
-  &__notZIndex {
-    z-index: -1 !important;
-  }
-
-  &__hide {
-    display: none;
-  }
-
-  &__background {
-    max-width: tablet(1280px);
-    width: 100%;
-    img {
-      width: 100%;
-    }
-  }
-
-  &__description {
-    display: flex;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-
-    &Image {
-      width: 400px;
-      height: 600px;
+    &__sideBar {
+        width: 243px;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        padding-top: 0;
+        z-index: 20;
+        height: calc(100vh - 50px);
     }
 
-    &Text {
-      color: white;
+    &__feed {
+        width: 100%;
+        margin-top: tablet(65px);
+        padding: 0;
     }
-  }
+
+    &__body {
+        display: flex;
+        flex-direction: row;
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    &__notZIndex {
+        z-index: -1 !important;
+    }
+
+    &__hide {
+        display: none;
+    }
+
+    &__background {
+        position: relative;
+        height: calc(100vh - 65px);
+        overflow-y: hidden;
+        width: 100%;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__opacity {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(12, 7, 95, 0.7);
+        filter: blur(175px);
+    }
+
+    &__description {
+        display: flex;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        img {
+            width: 320px;
+            height: 450px;
+            border-radius: 5%;
+        }
+
+        &Text {
+            color: white;
+            padding-top: tablet(40px);
+        }
+    }
+
+    &__descriptionImage {
+        padding: tablet(40px) tablet(50px);
+    }
+
+    &__titleMovie {
+        @include text($white, 'Relawey-Bold', tablet(23px), normal, normal);
+        text-decoration: underline;
+    }
+
+    &__subtitle {
+        @include text($white, 'Relawey-Regular', tablet(14px), normal, normal);
+        padding-top: tablet(10px);
+    }
+
+    &__overview {
+        padding: tablet(30px) tablet(30px) tablet(10px) 0;
+        text-align: justify;
+        @include text($white, 'Montserrat-Regular', tablet(18px), normal, 1.2);
+    }
+
+    &__chart {
+        padding-top: 10px;
+        width: 50px;
+        height: 50px;
+    }
 }

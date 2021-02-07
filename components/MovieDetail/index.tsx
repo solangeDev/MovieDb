@@ -5,11 +5,15 @@ import { connect } from 'react-redux';
 import TopBar from '../../components/TopBar';
 import NavBar from '../../components/NavBar';
 import { Animated } from 'react-animated-css';
+import Moment from 'moment';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-type MovieDetailProps = {};
+type MovieDetailProps = {
+    data: { title: string; vote_average: string; overview: string; release_date: string };
+};
 
-const MovieDetail: React.FC<MovieDetailProps> = ({}: MovieDetailProps) => {
+const MovieDetail: React.FC<MovieDetailProps> = ({ data }: MovieDetailProps) => {
     const [openNavBar, setOpenNavBar] = useState(true);
     const [activeMenu, setActiveMenu] = useState('dashboard');
     const [width, setWidth] = useState(process.browser ? window.innerWidth : 0);
@@ -38,6 +42,8 @@ const MovieDetail: React.FC<MovieDetailProps> = ({}: MovieDetailProps) => {
         setActiveMenu(e);
     };
 
+    console.log(data, 'aqui');
+
     return (
         <div>
             <TopBar menuIcon={true} openNavBar={handleChangeOpenBar} open={openNavBar} />
@@ -55,16 +61,45 @@ const MovieDetail: React.FC<MovieDetailProps> = ({}: MovieDetailProps) => {
                 </article>
                 <article className={styles.Movie__feed}>
                     <div className={styles.Movie__background}>
-                        <img src="https://image.tmdb.org/t/p/w500//52AfXWuXCHn3UjD17rBruA9f5qb.jpg"></img>
+                        <img src={`https://image.tmdb.org/t/p/w500/${data.backdrop_path}`}></img>
                         <div className={styles.Movie__opacity}></div>
                         <div className={styles.Movie__description}>
                             <div className={styles.Movie__descriptionImage}>
-                                <img src="https://picsum.photos/200/300" alt="movie-picture" />
+                                <img src={`https://image.tmdb.org/t/p/w500/${data.poster_path}`} alt="movie-picture" />
                             </div>
                             <div className={styles.Movie__descriptionText}>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore blanditiis quas ut sunt
-                                non, autem, atque nihil, accusamus deleniti dolorem recusandae eos saepe debitis nobis
-                                sed possimus cum laboriosam. Cumque?
+                                <div className={styles.Movie__titleMovie}>{data.title}</div>
+                                <div className={styles.Movie__subtitle}>
+                                    {`Release: ${Moment(data.release_date).format('MMMM Do, YYYY')}`}
+                                </div>
+                                <div className={styles.Movie__chart}>
+                                    <CircularProgressbar
+                                        styles={{
+                                            // Customize the root svg element
+                                            root: {},
+                                            trail: {
+                                                stroke: '#d6d6d6',
+                                                strokeLinecap: 'butt',
+                                                transform: 'rotate(0.25turn)',
+                                                transformOrigin: 'center center',
+                                            },
+                                            text: {
+                                                fill: 'white',
+                                                fontWeight: 'bold',
+                                                fontSize: '22px',
+                                            },
+                                            background: {
+                                                fill:
+                                                    Math.round(parseFloat(data.vote_average)) <= 5
+                                                        ? '#b15b83'
+                                                        : '#049807',
+                                            },
+                                        }}
+                                        value={((parseFloat(data.vote_average) * 100) / 10).toFixed(2)}
+                                        text={`${((parseFloat(data.vote_average) * 100) / 10).toFixed(2)}%`}
+                                    />
+                                </div>
+                                <div className={styles.Movie__overview}>{data.overview}</div>
                             </div>
                         </div>
                     </div>
