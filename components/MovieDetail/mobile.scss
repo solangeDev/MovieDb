@@ -55,6 +55,7 @@
 
         &Text {
             color: white;
+            padding: 10px;
         }
     }
 
@@ -65,11 +66,15 @@
     &__titleMovie {
         @include text($white, 'Relawey-Bold', tablet(23px), normal, normal);
         text-decoration: underline;
+        text-align: center;
+        font-size: 20px;
     }
 
     &__subtitle {
         @include text($white, 'Relawey-Regular', tablet(14px), normal, normal);
         padding-top: tablet(10px);
+        text-align: center;
+        font-size: 12px;
     }
 
     &__overview {
@@ -79,8 +84,8 @@
     }
 
     &__chart {
-        padding-top: 10px;
         width: 50px;
         height: 50px;
+        margin: 5px auto;
     }
 }
