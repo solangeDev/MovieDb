@@ -44,14 +44,12 @@ const Searcher: React.FC<searcherProps> = ({ properties, fetchMovies, session, g
         const { value } = e.target;
         setValue(value);
         getValue({ slug: value });
-        if (value.length >= 4) {
-            const payload = {
-                session_id: session.session_id,
-                slug: value,
-                page: 1,
-            };
-            await fetchMovies(payload);
-        }
+        const payload = {
+            session_id: session.session_id,
+            slug: value,
+            page: 1,
+        };
+        await fetchMovies(payload);
     };
 
     const handleKeyPress = async (e) => {

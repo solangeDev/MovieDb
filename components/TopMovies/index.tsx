@@ -143,27 +143,6 @@ const TopMovies: React.FC<TopMoviesProps> = ({
         });
     };
 
-    // useEffect(() => {
-    //     if (selectSearcher.error) {
-    //         setAlert({ ...alert, show: true, message: 'Server Error' });
-    //     } else if (selectSearcher.data.page === 1) {
-    //         const dataList = [...selectSearcher.data.results];
-    //         const newdata = dataList.map((a) => {
-    //             const b = { ...a };
-    //             b.isFavorite = isFavoriteItem(b);
-    //             return b;
-    //         });
-    //         setScrollList({
-    //             ...scrollList,
-    //             hasMore: newdata.length < selectSearcher.data.total_results,
-    //             results: newdata,
-    //             page: selectSearcher.data.page,
-    //             total_pages: selectSearcher.data.total_pages,
-    //             total_results: selectSearcher.data.total_results,
-    //         });
-    //     }
-    // }, [selectSearcher]);
-
     const getFavoriteValue = async (e, item) => {
         e.preventDefault();
         try {
