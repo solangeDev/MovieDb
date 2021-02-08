@@ -4,7 +4,7 @@ import { listNowPlaying, markAsFavorite } from '../../services/movies';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { selectUser } from '../../redux/user/userSelectors';
 import { selectSearcher } from '../../redux/searcher/searcherSelectors';
-import { setFavorite } from '../../redux/favoriteMovies/favoriteMoviesActions';
+import { setFavorite, addFavorite, removeFavorite } from '../../redux/favoriteMovies/favoriteMoviesActions';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
 import ItemMovie from '../../components/ItemMovie';
 import Loader from 'react-loader-spinner';
@@ -38,6 +38,8 @@ type NavBarProps = {
     };
     setFavorite: (a) => void;
     fetchMovies: ({}) => void;
+    addFavorite: ({}) => void;
+    removeFavorite: ({}) => void;
 };
 
 interface Alert {
@@ -52,6 +54,8 @@ const NowPlaying: React.FC<NavBarProps> = ({
     setFavorite,
     selectSearcher,
     fetchMovies,
+    addFavorite,
+    removeFavorite,
 }: NavBarProps) => {
     const scrollToTop = () => {
         scroll.scrollToTop();
@@ -71,15 +75,13 @@ const NowPlaying: React.FC<NavBarProps> = ({
         hasMore: true,
     });
 
-    const [favorites, setFavorites] = useState([]);
+    const [dataSearcher, setDataSearcher] = useState([]);
 
     useEffect(() => {
-        if (getFavorites.error) {
-            setAlert({ ...alert, show: true, message: 'Favorites Server Error' });
-        } else {
-            setFavorites([...getFavorites.items]);
+        if (!selectSearcher.error) {
+            setDataSearcher([...selectSearcher.data.results]);
         }
-    }, [getFavorites]);
+    }, [selectSearcher]);
 
     const [searchValue, setSearchValue] = useState('');
 
@@ -136,10 +138,10 @@ const NowPlaying: React.FC<NavBarProps> = ({
     };
 
     const searcher = (resset) => {
-        const newdata = favorites.map((a) => {
+        const newdata = dataSearcher.map((a) => {
             const b = { ...a };
             b.isFavorite = isFavoriteItem(b);
-            return b;
+            return a;
         });
         let items = [...scrollList.results, ...newdata];
         if (resset) {
@@ -157,6 +159,7 @@ const NowPlaying: React.FC<NavBarProps> = ({
 
     useEffect(() => {
         listItems(scrollList.page, false);
+        console.log('aja');
     }, []);
 
     const nextPage = async () => {
@@ -196,17 +199,11 @@ const NowPlaying: React.FC<NavBarProps> = ({
                     return b;
                 });
                 setScrollList({ ...scrollList, results: newData });
-                let newFavorites = [];
                 if (payload.body.favorite) {
-                    getFavorites.items.push(item);
+                    addFavorite(item);
                 } else {
-                    newFavorites = getFavorites.items.filter((a) => {
-                        if (a.id !== item.id) {
-                            return a;
-                        }
-                    });
+                    removeFavorite(item);
                 }
-                setFavorite({ items: newFavorites, error: false });
             } else {
                 scrollToTop();
                 setAlert({ ...alert, show: true, message: resp.data.status_message });
@@ -262,6 +259,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     setFavorite,
     fetchMovies,
+    addFavorite,
+    removeFavorite,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying);

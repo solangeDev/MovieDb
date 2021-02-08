@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.scss';
 import { listPopularMovies, markAsFavorite } from '../../services/movies';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
-import { setFavorite } from '../../redux/favoriteMovies/favoriteMoviesActions';
+import { setFavorite, addFavorite, removeFavorite } from '../../redux/favoriteMovies/favoriteMoviesActions';
 import { selectUser } from '../../redux/user/userSelectors';
 import { selectSearcher } from '../../redux/searcher/searcherSelectors';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -38,6 +38,8 @@ type PopularMoviesProps = {
     };
     setFavorite: (a) => void;
     fetchMovies: ({}) => void;
+    addFavorite: ({}) => void;
+    removeFavorite: ({}) => void;
 };
 
 interface Alert {
@@ -52,6 +54,8 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({
     selectSearcher,
     fetchMovies,
     setFavorite,
+    addFavorite,
+    removeFavorite,
 }: PopularMoviesProps) => {
     const scrollToTop = () => {
         scroll.scrollToTop();
@@ -71,15 +75,13 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({
         hasMore: true,
     });
 
-    const [favorites, setFavorites] = useState([]);
+    const [dataSearcher, setDataSearcher] = useState([]);
 
     useEffect(() => {
-        if (getFavorites.error) {
-            setAlert({ ...alert, show: true, message: 'Favorites Server Error' });
-        } else {
-            setFavorites([...getFavorites.items]);
+        if (!selectSearcher.error) {
+            setDataSearcher([...selectSearcher.data.results]);
         }
-    }, [getFavorites]);
+    }, [selectSearcher]);
 
     const [searchValue, setSearchValue] = useState('');
 
@@ -136,7 +138,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({
     };
 
     const searcher = (resset) => {
-        const newdata = favorites.map((a) => {
+        const newdata = dataSearcher.map((a) => {
             const b = { ...a };
             b.isFavorite = isFavoriteItem(b);
             return b;
@@ -197,17 +199,11 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({
                     return b;
                 });
                 setScrollList({ ...scrollList, results: newData });
-                let newFavorites = [];
                 if (payload.body.favorite) {
-                    getFavorites.items.push(item);
+                    addFavorite(item);
                 } else {
-                    newFavorites = getFavorites.items.filter((a) => {
-                        if (a.id !== item.id) {
-                            return a;
-                        }
-                    });
+                    removeFavorite(item);
                 }
-                setFavorite({ items: newFavorites, error: false });
             } else {
                 scrollToTop();
                 setAlert({ ...alert, show: true, message: resp.data.status_message });
@@ -263,6 +259,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     setFavorite,
     fetchMovies,
+    addFavorite,
+    removeFavorite,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopularMovies);
