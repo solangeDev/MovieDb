@@ -157,6 +157,7 @@ const NowPlaying: React.FC<NavBarProps> = ({
                 session_id: session.session_id,
                 slug: searchValue,
                 page: 2,
+                getFavorites: getFavorites,
             };
             await fetchMovies(payload);
             searcher(false);

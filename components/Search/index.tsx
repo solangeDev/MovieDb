@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import MovieSearchOutline from 'mdi-react/MovieSearchOutlineIcon';
 import { selectUser } from '../../redux/user/userSelectors';
 import { fetchMovies } from '../../redux/searcher/searcherActions';
+import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
 import { connect } from 'react-redux';
 
 const CssTextField = withStyles({
@@ -27,6 +28,9 @@ const CssTextField = withStyles({
 })(TextField);
 
 type searcherProps = {
+    getFavorites: {
+        items: [{ id: number }];
+    };
     session: {
         session_id: string;
     };
@@ -37,7 +41,13 @@ type searcherProps = {
     };
 };
 
-const Searcher: React.FC<searcherProps> = ({ properties, fetchMovies, session, getValue }: searcherProps) => {
+const Searcher: React.FC<searcherProps> = ({
+    properties,
+    fetchMovies,
+    session,
+    getValue,
+    getFavorites,
+}: searcherProps) => {
     const [value, setValue] = useState('');
 
     const handleChange = async (e) => {
@@ -48,6 +58,7 @@ const Searcher: React.FC<searcherProps> = ({ properties, fetchMovies, session, g
             session_id: session.session_id,
             slug: value,
             page: 1,
+            getFavorites: getFavorites,
         };
         await fetchMovies(payload);
     };
@@ -57,6 +68,7 @@ const Searcher: React.FC<searcherProps> = ({ properties, fetchMovies, session, g
             const payload = {
                 session_id: session.session_id,
                 slug: value,
+                getFavorites: getFavorites,
             };
             await fetchMovies(payload);
             getValue({ slug: value });
@@ -93,6 +105,7 @@ const Searcher: React.FC<searcherProps> = ({ properties, fetchMovies, session, g
 
 const mapStateToProps = (state) => ({
     session: selectUser(state),
+    getFavorites: getFavorites(state),
 });
 
 const mapDispatchToProps = {
