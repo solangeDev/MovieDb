@@ -1,0 +1,33 @@
+.Searcher {
+    &__container {
+        padding: mobile(20px) 0;
+        div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding: 0 mobile(20px);
+        }
+    }
+
+    &__icon {
+        svg {
+            color: $icons-gray-light;
+        }
+        padding-right: mobile(10px);
+    }
+
+    &__inputRoot {
+        width: 100%;
+        background-color: $white;
+        border-radius: 3px;
+
+        input {
+            @include text($font-color, 'Roboto-Medium', mobile(15px), normal, normal);
+            &::placeholder {
+                @include text($icons-gray-light, 'Roboto-Bold', mobile(15px), 1.47, normal);
+            }
+        }
+    }
+}
