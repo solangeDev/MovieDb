@@ -1,5 +1,8 @@
 import { URL } from './constans';
 import useAxios from '../config/axios.config';
+import axios from 'axios';
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 
 export async function searchMovie(payload) {
     const header = {
@@ -9,6 +12,9 @@ export async function searchMovie(payload) {
     return AXIOS.get(
         `${process.env.API_HOST}${URL.SEARCHER_MOVIE}?api_key=${process.env.API_KEY}&language=en-US&page=${payload.page}&query=${payload.slug}&session_id=${payload.session_id}
     `,
+        {
+            cancelToken: source.token,
+        },
     )
         .then((response) => {
             return response;

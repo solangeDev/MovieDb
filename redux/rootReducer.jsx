@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage';
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['favoriteMovies', 'searcherReducer'], //not persistent
+    blacklist: [], //not persistent
 };
 
 const rootReducer = combineReducers({

@@ -1,17 +1,26 @@
 .PopularMovies {
-  &__item {
-    margin: mobile(20px);
-  }
+    &__item {
+        margin: mobile(20px);
+    }
 
-  &__alert {
-    margin: mobile(20px);
-  }
+    &__alert {
+        margin: mobile(20px);
+    }
 
-  &__loader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-  }
+    &__loader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+    }
+
+    &__titleMod {
+        @include text($text-gray-dark, 'Roboto-Regular', mobile(18px), normal, 1.5);
+        margin: 10px 20px 10px;
+    }
+
+    &__hide {
+        display: none;
+    }
 }

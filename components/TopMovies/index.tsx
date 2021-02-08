@@ -49,6 +49,7 @@ const TopMovies: React.FC<TopMoviesProps> = ({
     session,
     selectSearcher,
     fetchMovies,
+    setFavorite,
 }: TopMoviesProps) => {
     const scrollToTop = () => {
         scroll.scrollToTop();
@@ -152,7 +153,7 @@ const TopMovies: React.FC<TopMoviesProps> = ({
                 body: {
                     media_type: 'movie',
                     media_id: item.id,
-                    favorite: true,
+                    favorite: !item.isFavorite,
                 },
             };
             const resp = await markAsFavorite(payload);
@@ -160,7 +161,7 @@ const TopMovies: React.FC<TopMoviesProps> = ({
                 const newData = scrollList.results.map((a) => {
                     const b = { ...a };
                     if (a.id === item.id) {
-                        b.isFavorite = !item.isFavorite;
+                        b.isFavorite = payload.body.favorite;
                     }
                     return b;
                 });
@@ -191,7 +192,6 @@ const TopMovies: React.FC<TopMoviesProps> = ({
 
     useEffect(() => {
         listItems(scrollList.page, false);
-        console.log('cargando');
     }, []);
 
     const nextPage = async () => {
@@ -205,9 +205,7 @@ const TopMovies: React.FC<TopMoviesProps> = ({
                 page: 2,
             };
             await fetchMovies(payload);
-            setTimeout(() => {
-                searcher(false);
-            }, 150);
+            searcher(false);
         }
     };
 
@@ -220,6 +218,9 @@ const TopMovies: React.FC<TopMoviesProps> = ({
                 <div>
                     <Searcher getValue={getSearhValue} properties={{ name: 'seacrher' }}></Searcher>
                 </div>
+                <h1 className={searchValue.length > 0 ? styles.TopMovies__hide : styles.TopMovies__titleMod}>
+                    Top rated movies
+                </h1>
                 <InfiniteScroll
                     dataLength={scrollList.results.length}
                     next={nextPage}

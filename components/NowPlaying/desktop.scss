@@ -1,17 +1,26 @@
 .NowPlaying {
-  &__item {
-    margin-bottom: desktop(30px);
-  }
+    &__item {
+        margin-bottom: desktop(30px);
+    }
 
-  &__alert {
-    margin: desktop(20px) desktop(35px) desktop(20px) 0;
-  }
+    &__alert {
+        margin: desktop(20px) desktop(35px) desktop(20px) 0;
+    }
 
-  &__loader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-  }
+    &__loader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+    }
+
+    &__titleMod {
+        @include text($text-gray-dark, 'Roboto-Regular', desktop(24px), normal, 1.5);
+        margin: 10px 0 30px;
+    }
+
+    &__hide {
+        display: none;
+    }
 }

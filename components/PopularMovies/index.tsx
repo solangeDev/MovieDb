@@ -4,9 +4,12 @@ import { listPopularMovies, markAsFavorite } from '../../services/movies';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
 import { setFavorite } from '../../redux/favoriteMovies/favoriteMoviesActions';
 import { selectUser } from '../../redux/user/userSelectors';
+import { selectSearcher } from '../../redux/searcher/searcherSelectors';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ItemMovie from '../../components/ItemMovie';
 import Loader from 'react-loader-spinner';
+import Searcher from '../Search';
+import { fetchMovies } from '../../redux/searcher/searcherActions';
 import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 import Alert from '../../components/Alert';
 import { connect } from 'react-redux';
@@ -15,6 +18,16 @@ type PopularMoviesProps = {
     getFavorites: {
         items: [{ id: number }];
     };
+    selectSearcher: {
+        error: boolean;
+        data: {
+            page: number;
+            results: [];
+            total_pages: number;
+            total_results: number;
+            hasMore: boolean;
+        };
+    };
     session: {
         account: {
             id: number;
@@ -22,6 +35,7 @@ type PopularMoviesProps = {
         session_id: string;
     };
     setFavorite: (a) => void;
+    fetchMovies: ({}) => void;
 };
 
 interface Alert {
@@ -30,7 +44,13 @@ interface Alert {
     type: 'error' | 'success' | 'info' | 'warning' | undefined;
 }
 
-const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: PopularMoviesProps) => {
+const PopularMovies: React.FC<PopularMoviesProps> = ({
+    getFavorites,
+    session,
+    selectSearcher,
+    fetchMovies,
+    setFavorite,
+}: PopularMoviesProps) => {
     const scrollToTop = () => {
         scroll.scrollToTop();
     };
@@ -49,7 +69,25 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: 
         hasMore: true,
     });
 
-    const listItems = async (page) => {
+    const [searchValue, setSearchValue] = useState('');
+
+    const getSearhValue = (data) => {
+        setSearchValue(data.slug);
+    };
+
+    useEffect(() => {
+        if (searchValue.length === 0) {
+            listItems(1, true);
+        } else {
+            if (scrollList.page === 1) {
+                searcher(true);
+            } else {
+                searcher(false);
+            }
+        }
+    }, [searchValue]);
+
+    const listItems = async (page, resset) => {
         try {
             const data = await listPopularMovies({
                 page: page,
@@ -60,7 +98,10 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: 
                     b.isFavorite = isFavoriteItem(b);
                     return b;
                 });
-                const items = [...scrollList.results, ...newdata];
+                let items = [...scrollList.results, ...newdata];
+                if (resset) {
+                    items = newdata;
+                }
                 setScrollList({
                     ...scrollList,
                     hasMore: items.length < data.data.total_results,
@@ -82,13 +123,44 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: 
         return valid.length > 0;
     };
 
+    const searcher = (resset) => {
+        const dataList = [...selectSearcher.data.results];
+        const newdata = dataList.map((a) => {
+            const b = { ...a };
+            b.isFavorite = isFavoriteItem(b);
+            return b;
+        });
+        let items = [...scrollList.results, ...newdata];
+        if (resset) {
+            items = newdata;
+        }
+        setScrollList({
+            ...scrollList,
+            hasMore: items.length < selectSearcher.data.total_results,
+            results: items,
+            page: selectSearcher.data.page,
+            total_pages: selectSearcher.data.total_pages,
+            total_results: selectSearcher.data.total_results,
+        });
+    };
+
     useEffect(() => {
-        listItems(scrollList.page);
+        listItems(scrollList.page, false);
     }, []);
 
-    const nextPage = () => {
+    const nextPage = async () => {
         const nextPage = scrollList.page + 1;
-        listItems(nextPage);
+        if (searchValue.length === 0) {
+            listItems(nextPage, false);
+        } else {
+            const payload = {
+                session_id: session.session_id,
+                slug: searchValue,
+                page: 2,
+            };
+            await fetchMovies(payload);
+            searcher(false);
+        }
     };
 
     const getFavoriteValue = async (e, item) => {
@@ -100,7 +172,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: 
                 body: {
                     media_type: 'movie',
                     media_id: item.id,
-                    favorite: true,
+                    favorite: !item.isFavorite,
                 },
             };
             const resp = await markAsFavorite(payload);
@@ -108,7 +180,7 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: 
                 const newData = scrollList.results.map((a) => {
                     const b = { ...a };
                     if (a.id === item.id) {
-                        b.isFavorite = !item.isFavorite;
+                        b.isFavorite = payload.body.favorite;
                     }
                     return b;
                 });
@@ -143,6 +215,12 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: 
                 <div className={styles.PopularMovies__alert}>
                     <Alert onClose={handleCloseAlert} data={alert}></Alert>
                 </div>
+                <div>
+                    <Searcher getValue={getSearhValue} properties={{ name: 'seacrher' }}></Searcher>
+                </div>
+                <h1 className={searchValue.length > 0 ? styles.PopularMovies__hide : styles.PopularMovies__titleMod}>
+                    Most viewed movies
+                </h1>
                 <InfiniteScroll
                     dataLength={scrollList.results.length}
                     next={nextPage}
@@ -167,9 +245,12 @@ const PopularMovies: React.FC<PopularMoviesProps> = ({ getFavorites, session }: 
 const mapStateToProps = (state) => ({
     session: selectUser(state),
     getFavorites: getFavorites(state),
-    setFavorite: setFavorite(state),
+    selectSearcher: selectSearcher(state),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+    setFavorite,
+    fetchMovies,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PopularMovies);

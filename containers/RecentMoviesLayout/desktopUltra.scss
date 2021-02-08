@@ -1,32 +1,32 @@
 .Dashboard {
-  &__sideBar {
-    width: 243px;
-    position: fixed;
-    top: 64px;
-    left: 0;
-    padding-top: 0;
-    z-index: 20;
-    height: calc(100vh - 50px);
-  }
+    &__sideBar {
+        width: 243px;
+        position: fixed;
+        top: 64px;
+        left: 0;
+        padding-top: 0;
+        z-index: 20;
+        height: calc(100vh - 50px);
+    }
 
-  &__feed {
-    width: 100%;
-    margin-top: desktop(65px);
-    padding: 0;
-  }
+    &__feed {
+        width: 100%;
+        margin-top: desktop(10px);
+        padding: 0;
+    }
 
-  &__body {
-    display: flex;
-    flex-direction: row;
-    margin-left: 290px;
-    margin-top: desktopUltra(40px);
-  }
+    &__body {
+        display: flex;
+        flex-direction: row;
+        margin-left: 290px;
+        margin-top: desktopUltra(40px);
+    }
 
-  &__notZIndex {
-    z-index: -1 !important;
-  }
+    &__notZIndex {
+        z-index: -1 !important;
+    }
 
-  &__hide {
-    display: none;
-  }
+    &__hide {
+        display: none;
+    }
 }
