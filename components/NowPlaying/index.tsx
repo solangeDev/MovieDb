@@ -15,7 +15,9 @@ import { Link, Element, Events, animateScroll as scroll, scrollSpy, scroller } f
 import { connect } from 'react-redux';
 
 type NavBarProps = {
+    [key: string]: any;
     getFavorites: {
+        error: boolean;
         items: [{ id: number }];
     };
     selectSearcher: {
@@ -68,6 +70,16 @@ const NowPlaying: React.FC<NavBarProps> = ({
         total_results: 0,
         hasMore: true,
     });
+
+    const [favorites, setFavorites] = useState([]);
+
+    useEffect(() => {
+        if (getFavorites.error) {
+            setAlert({ ...alert, show: true, message: 'Favorites Server Error' });
+        } else {
+            setFavorites([...getFavorites.items]);
+        }
+    }, [getFavorites]);
 
     const [searchValue, setSearchValue] = useState('');
 
@@ -124,8 +136,7 @@ const NowPlaying: React.FC<NavBarProps> = ({
     };
 
     const searcher = (resset) => {
-        const dataList = [...selectSearcher.data.results];
-        const newdata = dataList.map((a) => {
+        const newdata = favorites.map((a) => {
             const b = { ...a };
             b.isFavorite = isFavoriteItem(b);
             return b;
