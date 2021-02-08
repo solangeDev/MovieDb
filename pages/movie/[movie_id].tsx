@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { getMovieDetail } from '../../services/movies';
 import MovieDetail from '../../components/MovieDetail';
 import { getFavorites } from '../../redux/favoriteMovies/favoriteMoviesSelectors';
+import Router from 'next/router';
+import { selectUser } from '../../redux/user/userSelectors';
 import Head from 'next/head';
 import { connect } from 'react-redux';
 import { NextPage } from 'next';
@@ -14,10 +16,16 @@ interface Props {
     getFavorites?: {
         items: [{ id: number }];
     };
+    session?: {
+        request_token: string;
+    };
     context?: {
         movie_id: string;
         getFavorites: {
             items: [{ id: number }];
+        };
+        session: {
+            session_id: string;
         };
     };
 }
@@ -26,6 +34,14 @@ const Movie: NextPage<Props> = (context) => {
     const [data, setData] = useState<DataProps>({
         overview: '',
     });
+    useEffect(() => {
+        if (context.session.request_token === '') {
+            Router.push('/', '/');
+        }
+    }, [context]);
+    if (context.session.request_token === '') {
+        return null;
+    }
     const getMovie = async () => {
         let data = await getMovieDetail({ movie_id: context.movie_id });
         if (data.status === 200) {
@@ -67,6 +83,7 @@ Movie.getInitialProps = async (context) => {
 
 const mapStateToProps = (state) => ({
     getFavorites: getFavorites(state),
+    session: selectUser(state),
 });
 
 const mapDispatchToProps = {};
